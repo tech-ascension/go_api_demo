@@ -28,8 +28,9 @@ and run the following command:
 
 ### Prerequisites
 
-### Install MySQL
+### Install MySQL or Postgres
 [MySQL](https://dev.mysql.com/doc/mysql-getting-started/en/)
+[Postgres](https://www.postgresql.org/docs/current/tutorial-start.html)
 MySQL Workbench
 Execute the SQL within tech_test_device_interactions.sql to initialize the schema
 
