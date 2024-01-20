@@ -73,3 +73,84 @@ go test
 
 ### Executing Individual Unit Tests
  go test -run ^UnitTestName$ 
+
+ ### Anomaly Detetion
+
+Unusually High Interaction Frequency (fixed threshold):
+```
+SELECT
+  TIMESTAMP_TRUNC(timestamp, 'custom_time_interval') AS time_interval,
+  COUNT(*) AS interaction_count
+FROM
+  device_interactions
+WHERE
+  timestamp BETWEEN 'start_timestamp' AND 'end_timestamp'
+GROUP BY
+  time_interval
+HAVING
+  interaction_count > 'custom_threshold';
+```
+
+Unusually Higher/Lower Interaction Frequency than Average for a Device:
+
+```
+SELECT
+  device_id,
+  AVG(COUNT(*)) AS average_interaction_count
+FROM
+  device_interactions
+WHERE
+  timestamp BETWEEN 'start_timestamp' AND 'end_timestamp'
+GROUP BY
+  device_id
+HAVING
+  average_interaction_count < 'custom_low_threshold' OR average_interaction_count > 'custom_high_threshold';
+```
+
+Geographical Outliers:
+
+```
+SELECT
+  latitude,
+  longitude,
+  COUNT(*) AS interaction_count
+FROM
+  device_interactions
+WHERE
+  timestamp BETWEEN 'start_timestamp' AND 'end_timestamp'
+GROUP BY
+  latitude, longitude
+HAVING
+  distance(latitude, longitude, 'expected_latitude', 'expected_longitude') > 'custom_distance_threshold';
+
+```
+
+Recently Updated Device Name
+
+```
+SELECT
+  device_id,
+  device_name,
+  COUNT(*) AS interaction_count
+FROM
+  device_interactions
+WHERE
+  timestamp BETWEEN 'start_timestamp' AND 'end_timestamp'
+GROUP BY
+  device_id, device_name
+HAVING
+  device_id NOT IN ('custom_device_id_list') OR device_name NOT IN ('custom_device_name_list');
+```
+
+Inactive Periods
+
+```
+SELECT
+  TIMESTAMP_DIFF(MAX(timestamp), MIN(timestamp), SECOND) AS inactive_duration
+FROM
+  device_interactions
+WHERE
+  timestamp BETWEEN 'start_timestamp' AND 'end_timestamp'
+HAVING
+  inactive_duration > 'custom_inactive_threshold';
+```
