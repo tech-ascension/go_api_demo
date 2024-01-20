@@ -31,8 +31,9 @@ and run the following command:
 ### Install MySQL or Postgres
 [MySQL](https://dev.mysql.com/doc/mysql-getting-started/en/)
 [Postgres](https://www.postgresql.org/docs/current/tutorial-start.html)
-MySQL Workbench
-Execute the SQL within tech_test_device_interactions.sql to initialize the schema
+MySQL Workbench, DBeaver, or PGAdmin are recommended for managing the database
+Execute the SQL within *_tech_test_device_interactions.sql to initialize the schema
+Configure BigQuery to connect to the database
 
 ### Install Go
 [Go](https://go.dev/doc/install)
