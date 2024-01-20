@@ -77,6 +77,13 @@ go test
 
  ### Anomaly Detetion
 
+ There are a few things that can be done to detect anomalies in the data.  The following are some examples of queries that can be run to detect anomalies. Currently validation only takes into account timestamp anomalies and request structure. An argument can be made for not allowing updates to the Device Name as well for DeviceIds that have been seen before.  This would be a business decision. The expected behavior could be to update the device name to the most recent value, insert the new value as a new record, or reject the request.  Rejecting the request would be the most conservative approach.  
+ 
+ 
+ The following queries can be used to detect anomalies:
+
+ These queries can be run on a schedule to detect anomalies in the data.  The queries can be run on a schedule and the results can be sent to a monitoring system.
+
 Unusually High Interaction Frequency (fixed threshold):
 ```
 SELECT
