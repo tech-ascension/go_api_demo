@@ -1,4 +1,3 @@
-// handlers_test.go
 package main
 
 import (
@@ -15,7 +14,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// Assuming sqlOpen is a global variable in your main package
 var sqlOpen = sql.Open
 
 // Mock SQL database
@@ -166,7 +164,6 @@ func TestConnectDatabaseError(t *testing.T) {
 }
 
 func TestInsertDeviceInteractionsSuccess(t *testing.T) {
-	// Mock SQL database
 	db, mock, err := sqlmock.New()
 	if err != nil {
 		t.Fatalf("Error creating mock database: %v", err)
@@ -196,7 +193,6 @@ func TestInsertDeviceInteractionsSuccess(t *testing.T) {
 }
 
 func TestHasAnomaliesDuplicateTimestamp(t *testing.T) {
-	// Mock SQL database
 	db, mock, err := sqlmock.New()
 	if err != nil {
 		t.Fatalf("Error creating mock database: %v", err)
@@ -240,7 +236,6 @@ func TestIntegrationDataSubmissionHandler(t *testing.T) {
 		Devices: []Device{{ID: 1, Name: "Device1"}},
 	}
 
-	// Convert the submission to JSON
 	submissionJSON, err := json.Marshal(submission)
 	if err != nil {
 		t.Fatalf("Error marshaling submission to JSON: %v", err)
@@ -252,16 +247,15 @@ func TestIntegrationDataSubmissionHandler(t *testing.T) {
 		t.Fatalf("Error creating HTTP request: %v", err)
 	}
 
-	// Set the content type to JSON
 	req.Header.Set("Content-Type", "application/json")
 
 	// Create a response recorder to capture the response
 	w := httptest.NewRecorder()
 
-	// Call your dataSubmissionHandler directly
+	// Call the dataSubmissionHandler directly
 	dataSubmissionHandler(w, req)
 
-	// Check the HTTP status code
+	// Assert that the HTTP status code is 200
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status code %d, got %d", http.StatusOK, w.Code)
 	}
